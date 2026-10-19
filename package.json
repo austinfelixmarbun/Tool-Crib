@@ -1,0 +1,22 @@
+{
+  "name": "tool-crib",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter \"./apps/*\" --parallel dev",
+    "dev:backend": "pnpm --filter ./apps/backend dev",
+    "dev:frontend": "pnpm --filter ./apps/frontend dev",
+    "build:backend": "pnpm --filter ./apps/backend build",
+    "db:migrate": "pnpm --filter ./apps/backend db:migrate ",
+    "db:seed": "pnpm --filter ./apps/backend db:seed"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/pg": "^8.23.1"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  }
+}

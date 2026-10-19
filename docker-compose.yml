@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: toolcrib-container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: toolcribdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d toolcribdb" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: toolcrib-api
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgres://postgres:admin@postgres:5432/toolcribdb
+      NODE_ENV: development
+      PORT: 3001
+      SESSION_SECRET: your-super-secret-session-key-change-in-production
+      FRONTEND_URL: http://localhost:5173
+      SMTP_HOST: ""
+      SMTP_PORT: ""
+      SMTP_SECURE: ""
+      SMTP_USER: ""
+      SMTP_PASS: ""
+      SMTP_FROM: ""
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run dev
+
+  dashboard:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: toolcrib-dashboard
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:3001
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host
+
+volumes:
+  postgres_data:
+

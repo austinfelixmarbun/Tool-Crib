@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: toolcrib-db
+    restart: always
+    environment:
+      POSTGRES_USER: toolcrib
+      POSTGRES_PASSWORD: toolcrib_secret
+      POSTGRES_DB: toolcrib_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U toolcrib -d toolcrib_db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: toolcrib-api
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgres://toolcrib:toolcrib_secret@postgres:5432/toolcrib_db
+      NODE_ENV: production
+      PORT: 3001
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  dashboard:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+    container_name: toolcrib-dashboard
+    restart: always
+    ports:
+      - "5173:80"
+
+volumes:
+  postgres_data:

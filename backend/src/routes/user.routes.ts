@@ -1,4 +1,3 @@
-// src/routes/user.routes.ts
 import { Router } from "express";
 import * as userController from "../controllers/user.controller.ts";
 import {
@@ -14,10 +13,8 @@ const router = Router();
 
 router.use(authMiddleware);
 
-// Admin can lookup user by NIK for borrow verification
 router.get("/by-nik/:nik", requireAdmin, userController.getUserByNik);
 
-// Only Super Admin can access full user management
 router.get("/", requireSuperAdmin, userController.getUsers);
 router.get("/:id", requireSuperAdmin, userController.getUser);
 router.post("/", requireSuperAdmin, validate(CreateUserDto), userController.createUser);

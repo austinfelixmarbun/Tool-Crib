@@ -1,6 +1,3 @@
-// src/middlewares/validate.middleware.ts
-// Zod-based request validation middleware
-
 import type { NextFunction, Request, Response } from "express";
 import { ZodError, type ZodSchema } from "zod";
 import { sendError } from "../utils/api-response.ts";
@@ -15,7 +12,6 @@ export function validate(schema: ZodSchema, target: ValidateTarget = "body") {
       sendError(res, "Validation failed", 400, errors);
       return;
     }
-    // Replace the target with coerced/parsed value
     (req as unknown as Record<string, unknown>)[target] = result.data;
     next();
   };

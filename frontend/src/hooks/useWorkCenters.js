@@ -1,15 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { workCentersService } from "../services/workCentersService";
 
-// Query Keys
 export const workCentersKeys = {
   all: ["workCenters"],
   list: () => [...workCentersKeys.all, "list"],
 };
 
-/**
- * Hook to get all work centers
- */
 export function useWorkCenters() {
   return useQuery({
     queryKey: workCentersKeys.list(),
@@ -17,9 +13,6 @@ export function useWorkCenters() {
   });
 }
 
-/**
- * Hook for creating work center
- */
 export function useCreateWorkCenter() {
   const queryClient = useQueryClient();
 
@@ -31,9 +24,6 @@ export function useCreateWorkCenter() {
   });
 }
 
-/**
- * Hook for bulk creating work centers
- */
 export function useBulkCreateWorkCenters() {
   const queryClient = useQueryClient();
 
@@ -45,9 +35,6 @@ export function useBulkCreateWorkCenters() {
   });
 }
 
-/**
- * Hook for updating work center
- */
 export function useUpdateWorkCenter() {
   const queryClient = useQueryClient();
 
@@ -59,9 +46,6 @@ export function useUpdateWorkCenter() {
   });
 }
 
-/**
- * Hook for deleting work center
- */
 export function useDeleteWorkCenter() {
   const queryClient = useQueryClient();
 

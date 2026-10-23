@@ -1,4 +1,3 @@
-// src/services/user.service.ts
 import type {
   CreateUserDto,
   ResetPasswordDto,
@@ -32,7 +31,6 @@ export async function createUser(dto: CreateUserDto) {
 }
 
 export async function updateUser(id: string, dto: UpdateUserDto) {
-  // Super admin can update user fields, but not the password here
   const updated = await userRepo.updateUser(id, dto);
   const { passwordHash, ...sanitized } = updated;
   return sanitized;

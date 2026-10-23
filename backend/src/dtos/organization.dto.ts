@@ -1,4 +1,3 @@
-// src/dtos/organization.dto.ts
 import { z } from "zod";
 
 export const CreateWorkCenterDto = z.object({

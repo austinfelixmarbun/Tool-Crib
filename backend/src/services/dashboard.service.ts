@@ -1,4 +1,3 @@
-// src/services/dashboard.service.ts
 import { count, eq } from "drizzle-orm";
 import { db } from "../config/database.ts";
 import {

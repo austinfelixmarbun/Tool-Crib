@@ -1,9 +1,5 @@
-// Re-export all hooks for easy imports
-
-// Auth
 export { useCurrentUser, useLogin, useLogout, authKeys } from './useAuth';
 
-// Users
 export {
     useUsers,
     useUser,
@@ -14,7 +10,6 @@ export {
     usersKeys
 } from './useUsers';
 
-// Inventory
 export {
     useInventory,
     useInventoryItem,
@@ -26,7 +21,6 @@ export {
     inventoryKeys
 } from './useInventory';
 
-// Borrow
 export {
     useBorrowRequests,
     useBorrowRequest,
@@ -36,13 +30,10 @@ export {
     borrowKeys
 } from './useBorrow';
 
-// Return
 export { useActiveBorrows, useProcessReturn, returnKeys } from './useReturn';
 
-// Programs
 export { usePrograms, useCreateProgram, useDeleteProgram, programsKeys } from './usePrograms';
 
-// Work Centers
 export {
     useWorkCenters,
     useCreateWorkCenter,
@@ -52,5 +43,4 @@ export {
     workCentersKeys
 } from './useWorkCenters';
 
-// Dashboard
 export { useDashboardStats, useTransactions, useAuditLogs, dashboardKeys } from './useDashboard';

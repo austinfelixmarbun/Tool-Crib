@@ -1,4 +1,3 @@
-// src/services/auth.service.ts
 import argon2 from "argon2";
 import { createSessionCookie } from "../middlewares/auth.middleware.ts";
 import {

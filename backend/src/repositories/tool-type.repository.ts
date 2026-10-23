@@ -1,4 +1,3 @@
-// src/repositories/tool-type.repository.ts
 import { eq } from "drizzle-orm";
 import { db } from "../config/database.ts";
 import { tool as toolTable, toolUnit } from "../db/schema/index.ts";
@@ -65,7 +64,6 @@ export async function updateToolType(id: number, dto: UpdateToolTypeDto) {
 }
 
 export async function deleteToolType(id: number) {
-  // Check if any unit exists first
   const [unit] = await db
     .select({ id: toolUnit.id })
     .from(toolUnit)

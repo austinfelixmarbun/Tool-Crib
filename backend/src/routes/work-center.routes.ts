@@ -1,4 +1,3 @@
-// src/routes/work-center.routes.ts
 import { Router } from "express";
 import * as orgController from "../controllers/organization.controller.ts";
 import {

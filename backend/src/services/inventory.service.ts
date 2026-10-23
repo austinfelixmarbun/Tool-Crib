@@ -1,4 +1,3 @@
-// src/services/inventory.service.ts
 import type {
   CreateToolTypeDto,
   CreateToolUnitDto,
@@ -31,7 +30,6 @@ export async function deleteToolType(id: number) {
   return await toolTypeRepo.deleteToolType(id);
 }
 
-// Tool Units
 export async function listUnitsByToolType(toolTypeId: number) {
   return await toolUnitRepo.listUnitsByToolType(toolTypeId);
 }
@@ -48,7 +46,6 @@ export async function deleteToolUnit(id: number) {
   return await toolUnitRepo.deleteUnit(id);
 }
 
-// Calibration status helper (qcPeriode in months, no automated lockout, informational warnings)
 export async function getCalibrationOverview() {
   const toolTypes = await toolTypeRepo.listToolTypes();
   return toolTypes.map((t) => ({

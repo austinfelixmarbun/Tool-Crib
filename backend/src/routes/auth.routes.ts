@@ -1,4 +1,3 @@
-// src/routes/auth.routes.ts
 import { Router } from "express";
 import * as authController from "../controllers/auth.controller.ts";
 import { LoginDto } from "../dtos/auth.dto.ts";

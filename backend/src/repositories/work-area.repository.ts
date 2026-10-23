@@ -1,4 +1,3 @@
-// src/repositories/work-area.repository.ts
 import { eq } from "drizzle-orm";
 import { db } from "../config/database.ts";
 import { workArea as workAreaTable } from "../db/schema/index.ts";

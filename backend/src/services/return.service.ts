@@ -1,4 +1,3 @@
-// src/services/return.service.ts
 import type { ReturnDto } from "../dtos/transaction.dto.ts";
 import * as txRepo from "../repositories/transaction.repository.ts";
 import * as userRepo from "../repositories/user.repository.ts";
@@ -25,7 +24,6 @@ export async function listActiveLoansByNik(nik: number) {
   const transactions = await txRepo.listTransactions(user.id);
   const activeTx = transactions.filter((tx) => tx.status === "APPROVED");
 
-  // Extract all active borrowed units across these transactions
   const activeItems = [];
   for (const tx of activeTx) {
     for (const detail of tx.details) {

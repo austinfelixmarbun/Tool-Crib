@@ -1,5 +1,3 @@
-// Central routes and API endpoints constants for the frontend application
-
 export const DEFAULT_API_BASE_URL = '';
 export const API_BASE_URL =
   typeof import.meta !== 'undefined' &&

@@ -1,4 +1,3 @@
-// src/repositories/user.repository.ts
 import argon2 from "argon2";
 import { and, eq, ne } from "drizzle-orm";
 import { db } from "../config/database.ts";
@@ -53,7 +52,6 @@ export async function listUsers() {
 }
 
 export async function createUser(dto: CreateUserDto) {
-  // Check single Super Admin rule
   if (dto.role === "SUPER ADMIN") {
     const existingSuperAdmin = await db
       .select({ id: userTable.id })
@@ -67,7 +65,6 @@ export async function createUser(dto: CreateUserDto) {
     }
   }
 
-  // Check email uniqueness
   const existing = await findUserByEmail(dto.email);
   if (existing) throw conflict("Email already registered");
 
@@ -96,7 +93,6 @@ export async function updateUser(id: string, dto: UpdateUserDto) {
   const current = await findUserById(id);
   if (!current) throw notFound("User not found");
 
-  // Prevent changing Super Admin role or creating a second Super Admin
   if (dto.role) {
     if (current.role === "SUPER ADMIN" && dto.role !== "SUPER ADMIN") {
       throw conflict("Cannot demote or change the role of the Super Admin account.");
@@ -115,7 +111,6 @@ export async function updateUser(id: string, dto: UpdateUserDto) {
     }
   }
 
-  // Check email uniqueness if being changed
   if (dto.email) {
     const [dup] = await db
       .select({ id: userTable.id })

@@ -1,4 +1,3 @@
-// src/dtos/auth.dto.ts
 import { z } from "zod";
 
 export const LoginDto = z

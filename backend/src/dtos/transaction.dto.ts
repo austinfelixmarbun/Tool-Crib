@@ -1,7 +1,5 @@
-// src/dtos/transaction.dto.ts
 import { z } from "zod";
 
-// ── Borrow request (User side) ────────────────────────────────────────────────
 export const BorrowRequestDto = z.object({
   programId: z.number().int().positive(),
   notes: z.string().max(500).optional(),
@@ -15,7 +13,6 @@ export const BorrowRequestDto = z.object({
     .min(1, "At least one tool type must be selected"),
 });
 
-// ── Borrow approval (Admin counter) ──────────────────────────────────────────
 export const BorrowApproveDto = z.object({
   referenceType: z.string().max(30),
   jidNo: z.string().max(30),
@@ -23,7 +20,6 @@ export const BorrowApproveDto = z.object({
   workAreaId: z.number().int().positive(),
   checkoutDate: z.string().datetime(),
   expectedReturnDate: z.string().datetime(),
-  // Per item: which physical unit IDs are assigned
   itemAssignments: z.array(
     z.object({
       transactionItemId: z.string(),
@@ -32,7 +28,6 @@ export const BorrowApproveDto = z.object({
   ),
 });
 
-// ── Return (Admin / Super Admin) ─────────────────────────────────────────────
 export const ReturnItemDto = z.object({
   toolUnitId: z.number().int().positive(),
   status: z.enum(["RETURNED", "BROKEN", "LOST"]),

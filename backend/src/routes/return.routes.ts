@@ -1,4 +1,3 @@
-// src/routes/return.routes.ts
 import { Router } from "express";
 import * as returnController from "../controllers/return.controller.ts";
 import { ReturnDto } from "../dtos/transaction.dto.ts";
@@ -14,7 +13,6 @@ router.get("/", returnController.listLoans);
 router.get("/active/:nik", returnController.getActiveBorrowsByNik);
 router.get("/:id", returnController.getLoan);
 
-// Admin & Super Admin can process returns
 router.post(
   "/:id",
   requireAdmin,

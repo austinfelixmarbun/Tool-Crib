@@ -60,15 +60,15 @@ const Login = () => {
                     <div className="pt-10 pb-6 px-8 flex flex-col items-center text-center">
                         <div className="w-20 h-20 mb-6 bg-white rounded-xl shadow-sm flex items-center justify-center p-2 border border-gray-100">
                             <img
-                                className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity"
+                                className="select-none w-full h-full object-contain"
                                 alt="PTDI Logo"
-                                src="/src/assets/LOGO-16.png.webp"
+                                src="/src/assets/PTDI_LOGO.webp"
                             />
                         </div>
-                        <h1 className="text-2xl font-bold tracking-tight text-[#0e121b] dark:text-white mb-2">
+                        <h1 className="select-none text-2xl font-bold tracking-tight text-[#0e121b] dark:text-white mb-2">
                             Tool Crib DPM
                         </h1>
-                        <p className="text-[#4d6599] dark:text-gray-400 font-medium text-sm">
+                        <p className="select-none text-[#4d6599] dark:text-gray-400 font-medium text-sm">
                             User Login
 
                         </p>
@@ -168,7 +168,7 @@ const Login = () => {
                         </button>
                     </form>
 
-                    <div className="bg-white/80 dark:bg-gray-900/70 border-t border-[#e7ebf3] dark:border-gray-700 py-4 px-6 text-center">
+                    <div className="select-none bg-white/80 dark:bg-gray-900/70 border-t border-[#e7ebf3] dark:border-gray-700 py-4 px-6 text-center">
                         <p className="text-[7px] text-[#64748b] dark:text-gray-500 font-medium">Digitalizing Tool Crib for DPM Production Directorate PTDI</p>
                         <p className="text-[7px] text-[#64748b] dark:text-gray-500 font-medium">Version 1.0.0</p>
                     </div>

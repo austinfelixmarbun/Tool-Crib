@@ -1,4 +1,3 @@
-// src/dtos/program.dto.ts
 import { z } from "zod";
 
 export const CreateProgramDto = z.object({

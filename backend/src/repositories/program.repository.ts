@@ -1,4 +1,3 @@
-// src/repositories/program.repository.ts
 import { eq } from "drizzle-orm";
 import { db } from "../config/database.ts";
 import { program as programTable } from "../db/schema/index.ts";

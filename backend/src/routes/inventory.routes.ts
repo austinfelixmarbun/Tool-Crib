@@ -1,4 +1,3 @@
-// src/routes/inventory.routes.ts
 import { Router } from "express";
 import * as inventoryController from "../controllers/inventory.controller.ts";
 import {
@@ -15,10 +14,8 @@ const router = Router();
 
 router.use(authMiddleware);
 
-// Calibration overview (qcPeriode in months, warning badges)
 router.get("/calibration", inventoryController.getCalibrationOverview);
 
-// Tool Types (supports both / and /tools)
 router.get("/", inventoryController.getToolTypes);
 router.get("/tools", inventoryController.getToolTypes);
 
@@ -29,44 +26,47 @@ router.post(
   "/",
   requireAdmin,
   validate(CreateToolTypeDto),
-  inventoryController.createToolType
+  inventoryController.createToolType,
 );
 router.post(
   "/tools",
   requireAdmin,
   validate(CreateToolTypeDto),
-  inventoryController.createToolType
+  inventoryController.createToolType,
 );
 
 router.patch(
   "/:id(\\d+)",
   requireAdmin,
   validate(UpdateToolTypeDto),
-  inventoryController.updateToolType
+  inventoryController.updateToolType,
 );
 router.patch(
   "/tools/:id(\\d+)",
   requireAdmin,
   validate(UpdateToolTypeDto),
-  inventoryController.updateToolType
+  inventoryController.updateToolType,
 );
 
 router.delete("/:id(\\d+)", requireAdmin, inventoryController.deleteToolType);
-router.delete("/tools/:id(\\d+)", requireAdmin, inventoryController.deleteToolType);
+router.delete(
+  "/tools/:id(\\d+)",
+  requireAdmin,
+  inventoryController.deleteToolType,
+);
 
-// Tool Units
 router.get("/tools/:toolTypeId/units", inventoryController.getToolUnits);
 router.post(
   "/units",
   requireAdmin,
   validate(CreateToolUnitDto),
-  inventoryController.createToolUnit
+  inventoryController.createToolUnit,
 );
 router.patch(
   "/units/:id/status",
   requireAdmin,
   validate(UpdateToolUnitDto),
-  inventoryController.updateToolUnitStatus
+  inventoryController.updateToolUnitStatus,
 );
 router.delete("/units/:id", requireAdmin, inventoryController.deleteToolUnit);
 

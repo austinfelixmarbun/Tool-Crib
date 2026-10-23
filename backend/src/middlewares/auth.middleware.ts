@@ -1,23 +1,18 @@
-// src/middlewares/auth.middleware.ts
-// Reads the signed session cookie and attaches user to req.user
-
 import argon2 from "argon2";
 import { eq } from "drizzle-orm";
 import type { NextFunction, Request, Response } from "express";
+import { createHmac, timingSafeEqual } from "node:crypto";
 import { db } from "../config/database.ts";
+import env from "../config/env.ts";
 import { user as userTable } from "../db/schema/index.ts";
 import type { UserSession } from "../types/express.d.ts";
 import { unauthorized } from "../utils/app-error.ts";
 import logger from "../utils/logger.ts";
 
-// We store session data as a base64-encoded JSON payload in an HttpOnly cookie.
-// Signature is HMAC-SHA256 over the payload using SESSION_SECRET.
-
-import { createHmac, timingSafeEqual } from "node:crypto";
-import env from "../config/env.ts";
-
 function sign(payload: string): string {
-  return createHmac("sha256", env.SESSION_SECRET).update(payload).digest("base64url");
+  return createHmac("sha256", env.SESSION_SECRET)
+    .update(payload)
+    .digest("base64url");
 }
 
 export function createSessionCookie(session: UserSession): string {
@@ -44,7 +39,9 @@ function verifySessionCookie(cookie: string): UserSession | null {
   }
 
   try {
-    return JSON.parse(Buffer.from(payload, "base64url").toString("utf-8")) as UserSession;
+    return JSON.parse(
+      Buffer.from(payload, "base64url").toString("utf-8"),
+    ) as UserSession;
   } catch {
     return null;
   }
@@ -53,7 +50,7 @@ function verifySessionCookie(cookie: string): UserSession | null {
 export async function authMiddleware(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> {
   try {
     const cookie = req.cookies?.session as string | undefined;
@@ -67,7 +64,6 @@ export async function authMiddleware(
       return next(unauthorized("Invalid session"));
     }
 
-    // Verify user still exists & is active
     const [dbUser] = await db
       .select({
         id: userTable.id,

@@ -1,4 +1,3 @@
-// src/dtos/user.dto.ts
 import { z } from "zod";
 
 export const CreateUserDto = z.object({

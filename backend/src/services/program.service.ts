@@ -1,4 +1,3 @@
-// src/services/program.service.ts
 import type { CreateProgramDto, UpdateProgramDto } from "../dtos/program.dto.ts";
 import * as programRepo from "../repositories/program.repository.ts";
 import { notFound } from "../utils/app-error.ts";

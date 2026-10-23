@@ -1,4 +1,3 @@
-// src/services/borrow.service.ts
 import type { BorrowApproveDto, BorrowRequestDto } from "../dtos/transaction.dto.ts";
 import * as toolTypeRepo from "../repositories/tool-type.repository.ts";
 import * as toolUnitRepo from "../repositories/tool-unit.repository.ts";
@@ -6,7 +5,6 @@ import * as txRepo from "../repositories/transaction.repository.ts";
 import { badRequest, notFound } from "../utils/app-error.ts";
 
 export async function createBorrowRequest(userId: string, dto: BorrowRequestDto) {
-  // Validate that all requested tool types exist
   for (const item of dto.items) {
     const toolType = await toolTypeRepo.findToolTypeById(item.toolTypeId);
     if (!toolType) {
@@ -28,7 +26,6 @@ export async function listBorrowRequests(filter?: {
   userId?: string;
   role?: string;
 }) {
-  // If role is USER, only return their own transactions
   const targetUserId =
     filter?.role === "USER" ? filter.userId : undefined;
 
@@ -55,7 +52,6 @@ export async function approveBorrowRequest(
     throw badRequest(`Cannot approve transaction with status "${tx.status}"`);
   }
 
-  // Validate unit availability and matching
   for (const assignment of dto.itemAssignments) {
     const item = tx.items.find((i) => i.id.toString() === assignment.transactionItemId);
     if (!item) {

@@ -1,4 +1,3 @@
-// src/routes/program.routes.ts
 import { Router } from "express";
 import * as programController from "../controllers/program.controller.ts";
 import { CreateProgramDto, UpdateProgramDto } from "../dtos/program.dto.ts";

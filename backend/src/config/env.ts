@@ -12,18 +12,18 @@ const stringBoolean = z.coerce
 const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   PORT: z.coerce.number().default(3001),
-  FRONTEND_URL: z.string().default("http://localhost:5173"),
-  SESSION_SECRET: z.string().min(1,"SESSION_SECRET is required"),
+  FRONTEND_URL: z.string().url().default("http://localhost:5173"),
+  SESSION_SECRET: z.string().min(32,"SESSION_SECRET is required"),
   SUPER_ADMIN_PASS: z
     .string()
     .startsWith("$argon2", "SUPER_ADMIN_PASS must be a valid argon2 hash string"),
   DB_HOST: z.string().default("localhost"),
-  DB_USER: z.string().default("user"),
-  DB_PASSWORD: z.string().default("password"),
-  DB_NAME: z.string().default("toolcrib"),
+  DB_USER: z.string(),
+  DB_PASSWORD: z.string(),
+  DB_NAME: z.string(),
   DB_PORT: z.coerce.number().default(5432),
   DATABASE_URL: z.string().min(1,"DATABASE_URL is required"),
-  ALLOWED_ORIGINS: z
+  ALLOWED_ORIGINS: z  
     .string()
     .default("http://localhost:5173,http://localhost:3000")
     .transform((val) => val.split(",").map((s) => s.trim())),

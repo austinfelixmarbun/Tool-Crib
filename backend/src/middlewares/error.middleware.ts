@@ -1,6 +1,3 @@
-// src/middlewares/error.middleware.ts
-// Global error handler — must have 4 args to be recognized by Express
-
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "../utils/app-error.ts";
 import logger from "../utils/logger.ts";
@@ -20,7 +17,6 @@ export function errorMiddleware(
     return;
   }
 
-  // Unknown / programming errors
   logger.error("Unhandled error", err);
   res.status(500).json({
     success: false,

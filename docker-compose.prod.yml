@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
@@ -6,46 +6,47 @@ services:
     container_name: toolcrib-db
     restart: always
     environment:
-      POSTGRES_USER: toolcrib
-      POSTGRES_PASSWORD: toolcrib_secret
-      POSTGRES_DB: toolcrib_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U toolcrib -d toolcrib_db" ]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  api:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
-    container_name: toolcrib-api
+    container_name: toolcrib-backend
     restart: always
     ports:
-      - "3001:3001"
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
-      DATABASE_URL: postgres://toolcrib:toolcrib_secret@postgres:5432/toolcrib_db
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      SESSION_SECRET: ${SESSION_SECRET}
       NODE_ENV: production
-      PORT: 3001
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
+      PORT: ${BACKEND_PORT}
+      FRONTEND_URL: ${FRONTEND_URL}
     depends_on:
       postgres:
         condition: service_healthy
 
-  dashboard:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
       args:
         VITE_API_URL: ${VITE_API_URL}
-    container_name: toolcrib-dashboard
+    container_name: toolcrib-frontend
     restart: always
     ports:
-      - "5173:80"
+      - "${FRONTEND_PORT}:80"
 
 volumes:
   postgres_data:

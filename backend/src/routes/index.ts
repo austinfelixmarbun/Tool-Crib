@@ -12,7 +12,6 @@ import workCenterRoutes from "./work-center.routes.ts";
 
 const router = Router();
 
-// Health check endpoint
 router.get(ROUTES.HEALTH, (_req, res) => {
   res.json({ status: "healthy", timestamp: new Date().toISOString() });
 });

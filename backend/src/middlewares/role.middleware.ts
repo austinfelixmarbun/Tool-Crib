@@ -1,6 +1,3 @@
-// src/middlewares/role.middleware.ts
-// RBAC — guards routes by allowed roles
-
 import type { NextFunction, Request, Response } from "express";
 import type { UserRole } from "../types/express.d.ts";
 import { forbidden, unauthorized } from "../utils/app-error.ts";
@@ -17,7 +14,6 @@ export function requireRole(...allowedRoles: UserRole[]) {
   };
 }
 
-// Shorthand guards
 export const requireSuperAdmin = requireRole("SUPER ADMIN");
 export const requireAdmin = requireRole("SUPER ADMIN", "ADMIN");
 export const requireQC = requireRole("SUPER ADMIN", "ADMIN", "QUALITY CONTROL");

@@ -1,62 +1,64 @@
+version: "3.8"
+
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: toolcrib-container
+    container_name: toolcrib-db-dev
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: toolcribdb
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_dev_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d toolcribdb" ]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  api:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: toolcrib-api
+    container_name: toolcrib-backend-dev
+    restart: unless-stopped
     ports:
-      - "3001:3001"
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
-      DATABASE_URL: postgres://postgres:admin@postgres:5432/toolcribdb
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      SESSION_SECRET: ${SESSION_SECRET}
+      SUPER_ADMIN_PASS: ${SUPER_ADMIN_PASS}
       NODE_ENV: development
-      PORT: 3001
-      SESSION_SECRET: your-super-secret-session-key-change-in-production
-      FRONTEND_URL: http://localhost:5173
-      SMTP_HOST: ""
-      SMTP_PORT: ""
-      SMTP_SECURE: ""
-      SMTP_USER: ""
-      SMTP_PASS: ""
-      SMTP_FROM: ""
-    depends_on:
-      postgres:
-        condition: service_healthy
+      PORT: ${BACKEND_PORT}
+      FRONTEND_URL: ${FRONTEND_URL}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+      DB_MIGRATING: ${DB_MIGRATING}
+      DB_SEEDING: ${DB_SEEDING}
     volumes:
       - ./backend:/app
       - /app/node_modules
-    command: npm run dev
+    depends_on:
+      postgres:
+        condition: service_healthy
 
-  dashboard:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: toolcrib-dashboard
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+    container_name: toolcrib-frontend-dev
+    restart: unless-stopped
     ports:
-      - "5173:5173"
-    environment:
-      VITE_API_URL: http://localhost:3001
+      - "${FRONTEND_PORT}:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    command: npm run dev -- --host
+    depends_on:
+      - backend
 
 volumes:
-  postgres_data:
-
+  postgres_dev_data:

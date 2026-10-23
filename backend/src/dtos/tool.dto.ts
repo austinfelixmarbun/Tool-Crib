@@ -1,4 +1,3 @@
-// src/dtos/tool.dto.ts
 import { z } from "zod";
 
 export const CreateToolTypeDto = z.object({
@@ -6,7 +5,7 @@ export const CreateToolTypeDto = z.object({
   name: z.string().min(1).max(100),
   programId: z.number().int().positive(),
   description: z.string().max(255).optional(),
-  qcPeriode: z.number().int().positive().optional(), // months
+  qcPeriode: z.number().int().positive().optional(),
   location: z.string().min(1).max(100),
 });
 

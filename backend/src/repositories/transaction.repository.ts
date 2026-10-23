@@ -1,4 +1,3 @@
-// src/repositories/transaction.repository.ts
 import { desc, eq } from "drizzle-orm";
 import { db } from "../config/database.ts";
 import {
@@ -215,7 +214,6 @@ export async function processUnitReturns(
         .where(eq(toolUnit.id, ret.toolUnitId));
     }
 
-    // Check if all units for this transaction have been processed/returned
     const activeDetails = await tx
       .select({ id: transactionDetail.id })
       .from(transactionDetail)
@@ -230,7 +228,6 @@ export async function processUnitReturns(
         eq(transactionDetail.transactionId, transactionId)
       );
 
-    // If all are not 'BORROWED', mark transaction as RETURNED
     const allUnits = await tx.query.transactionDetail.findMany({
       where: eq(transactionDetail.transactionId, transactionId),
     });

@@ -1,4 +1,3 @@
-// src/routes/borrow.routes.ts
 import { Router } from "express";
 import * as borrowController from "../controllers/borrow.controller.ts";
 import { BorrowApproveDto, BorrowRequestDto } from "../dtos/transaction.dto.ts";

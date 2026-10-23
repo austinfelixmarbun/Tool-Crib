@@ -1,4 +1,3 @@
-// src/repositories/work-center.repository.ts
 import { eq } from "drizzle-orm";
 import { db } from "../config/database.ts";
 import { workCenter as workCenterTable } from "../db/schema/index.ts";

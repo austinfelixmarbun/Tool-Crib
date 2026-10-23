@@ -1,4 +1,3 @@
-// src/repositories/tool-unit.repository.ts
 import { and, eq } from "drizzle-orm";
 import { db } from "../config/database.ts";
 import { toolUnit } from "../db/schema/index.ts";
@@ -30,7 +29,6 @@ export async function findAvailableUnits(toolTypeId: number, qty: number) {
 }
 
 export async function createUnit(dto: CreateToolUnitDto) {
-  // Ensure seqNo is unique within tool type
   const [dup] = await db
     .select({ id: toolUnit.id })
     .from(toolUnit)

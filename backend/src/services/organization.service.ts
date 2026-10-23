@@ -1,4 +1,3 @@
-// src/services/organization.service.ts
 import type {
   CreateWorkAreaDto,
   CreateWorkCenterDto,
@@ -9,7 +8,6 @@ import * as workAreaRepo from "../repositories/work-area.repository.ts";
 import * as workCenterRepo from "../repositories/work-center.repository.ts";
 import { notFound } from "../utils/app-error.ts";
 
-// Work Centers
 export async function listWorkCenters() {
   return await workCenterRepo.listWorkCenters();
 }
@@ -32,7 +30,6 @@ export async function deleteWorkCenter(id: number) {
   return await workCenterRepo.deleteWorkCenter(id);
 }
 
-// Work Areas
 export async function listWorkAreas() {
   return await workAreaRepo.listWorkAreas();
 }

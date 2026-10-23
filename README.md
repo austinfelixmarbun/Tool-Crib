@@ -36,33 +36,33 @@ This application is built as a monorepo using modern technologies:
 
 ```
 ToolCrib/
-├── backend/                               # Backend Application (Layered Architecture)
+├── backend/                               Backend Application (Layered Architecture)
 │   ├── src/
-│   │   ├── config/                        # 1. Configuration Layer
+│   │   ├── config/                        1. Configuration Layer
 instance
-│   │   ├── routes/                        # 2. HTTP Routing Layer (Endpoints)
-│   │   ├── controllers/                   # 3. Controller Layer (Req/Res Handling)
-│   │   ├── services/                      # 4. Service Layer (Business Logic)
+│   │   ├── routes/                        2. HTTP Routing Layer (Endpoints)
+│   │   ├── controllers/                   3. Controller Layer (Req/Res Handling)
+│   │   ├── services/                      4. Service Layer (Business Logic)
 extensions
-│   │   ├── repositories/                  # 5. Data Access Layer (Drizzle Queries)
-│   │   ├── dtos/                          # 6. DTO & Validation Layer (Zod Schemas)
-│   │   ├── middlewares/                   # 7. Middleware Layer
-│   │   ├── db/                            # 8. Database & Schema Definitions
-│   │   ├── types/                         # 9. TypeScript Global Types
-│   │   ├── utils/                         # 10. Utility Layer
+│   │   ├── repositories/                  5. Data Access Layer (Drizzle Queries)
+│   │   ├── dtos/                          6. DTO & Validation Layer (Zod Schemas)
+│   │   ├── middlewares/                   7. Middleware Layer
+│   │   ├── db/                            8. Database & Schema Definitions
+│   │   ├── types/                         9. TypeScript Global Types
+│   │   ├── utils/                         10. Utility Layer
 │
-├── frontend/                              # Frontend Application (React 19 + Vite)
+├── frontend/                              Frontend Application (React 19 + Vite)
 │   ├── src/
-│   │   ├── assets/                        # Logos, icons, branding images
-│   │   ├── components/                    # Reusable Presentation Components
+│   │   ├── assets/                        Logos, icons, branding images
+│   │   ├── components/                    Reusable Presentation Components
 (html5-qrcode)
-│   │   ├── context/                       # React Context State Management
+│   │   ├── context/                       React Context State Management
 persistence
-│   │   ├── hooks/                         # Custom React Hooks
-│   │   ├── lib/                           # Core Utilities
-│   │   ├── pages/                         # Application Route Views
-│   │   ├── services/                      # Frontend API Services
-│   │   ├── utils/                         # Frontend Utilities
+│   │   ├── hooks/                         Custom React Hooks
+│   │   ├── lib/                           Core Utilities
+│   │   ├── pages/                         Application Route Views
+│   │   ├── services/                      Frontend API Services
+│   │   ├── utils/                         Frontend Utilities
 ```
 
 ---
